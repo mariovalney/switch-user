@@ -8,10 +8,13 @@ Author URI: http://www.mariovalney.com
 Text Domain: switch-user
 */
 
+if ( ! defined( 'ABSPATH' ) )
+	exit; // Exit if accessed directly.
+
 define('SU_TEXTDOMAIN', 'switch-user');
 
 function su_frontend() {
-    if (is_user_logged_in()) : 
+    if (is_user_logged_in()) :
         $users = get_users(array('order_by' => 'login'));
 
         if (!empty($users)) : ?>
@@ -115,7 +118,7 @@ function su_frontend() {
                 <?php
                     foreach ($users as $user) {
                         if ($user->ID == get_current_user_id()) {
-                            echo '<li class="current-user" data-user-id="' . $user->ID . '">' . $user->user_login . '</li>';    
+                            echo '<li class="current-user" data-user-id="' . $user->ID . '">' . $user->user_login . '</li>';
                         } else {
                             echo '<li class="js-su-user" data-user-id="' . $user->ID . '">' . $user->user_login . '</li>';
                         }
