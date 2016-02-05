@@ -2,14 +2,14 @@
 /*
 Plugin Name: Switch User
 Description: Switch to another user account quickly. Do not activate in production!
-Version: 1.0
+Version: 1.0.1
 Author: Mário Valney
 Author URI: http://www.mariovalney.com
 Text Domain: switch-user
 */
 
-if (! defined( 'ABSPATH' ))
-	exit; // Exit if accessed directly.
+if (!defined( 'ABSPATH' ))
+	exit; // You shall not pass
 
 define('SU_TEXTDOMAIN', 'switch-user');
 
@@ -46,7 +46,7 @@ add_action('wp_footer', 'su_frontend');
 function su_enqueue_scripts() {
 	wp_enqueue_style(SU_TEXTDOMAIN . '_css_main', plugins_url( 'assets/css/main.css', __FILE__ ), array(), null, 'all');
 	wp_enqueue_script(SU_TEXTDOMAIN . '_js_main', plugins_url( 'assets/js/main.js', __FILE__ ), array( 'jquery' ), null, true);
-	wp_localize_script(SU_TEXTDOMAIN . '_js_main', 'postUsefulAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ));
+	wp_localize_script(SU_TEXTDOMAIN . '_js_main', 'SU', array('ajaxurl' => admin_url('admin-ajax.php')));
 }
 add_action('wp_enqueue_scripts', 'su_enqueue_scripts');
 

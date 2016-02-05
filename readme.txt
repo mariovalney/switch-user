@@ -1,5 +1,5 @@
 === Plugin Name ===
-Contributors: mariovalney
+Contributors: mariovalney, leobaiano
 Donate link: http://mariovalney.com/
 Tags: users, developer, debug
 Requires at least: 3.1.0
@@ -55,13 +55,10 @@ Make sure your theme uses get_footer() function...
 
 NO! For secury reasons, of course...
 
-== Screenshots ==
-
-1. Interface Button
-
-2. Interface Opened
-
 == Changelog ==
+
+= 1.0.1 =
+* File architecture improved by @leobaiano
 
 = 1.0 =
 * First version: you can switch through all users registered.
