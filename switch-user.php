@@ -11,161 +11,42 @@ Text Domain: switch-user
 define('SU_TEXTDOMAIN', 'switch-user');
 
 function su_frontend() {
-    if (is_user_logged_in()) : 
+    if (is_user_logged_in()) :
         $users = get_users(array('order_by' => 'login'));
 
         if (!empty($users)) : ?>
-        <style type="text/css">
-            .su-wrapper {
-                display: block;
-                position: fixed;
-                top: 20%;
-                right: -200px;
-                width: 200px;
-                background: #FFFFFF;
-                z-index: 999999;
-                color: #000000;
-                border-top-left-radius: 10px;
-                border-bottom-left-radius: 10px;
-                max-height: 300px;
-                overflow: visible;
-                padding: 0 0 0 0;
-                -webkit-transition: all 0.3s ease-in-out;
-                -moz-transition: all 0.3s ease-in-out;
-                -o-transition: all 0.3s ease-in-out;
-                transition: all 0.3s ease-in-out;
-            }
+	        <div class="su-wrapper">
+	            <span class="su-wrapper-toggle"></span>
+	            <h1><?php _e('Switch User:', SU_TEXTDOMAIN) ?></h1>
+	            <hr>
+	            <ul>
+	                <?php
+	                    foreach ($users as $user) {
+	                        if ($user->ID == get_current_user_id()) {
+	                            echo '<li class="current-user" data-user-id="' . $user->ID . '">' . $user->user_login . '</li>';
+	                        } else {
+	                            echo '<li class="js-su-user" data-user-id="' . $user->ID . '">' . $user->user_login . '</li>';
+	                        }
+	                    }
+	                ?>
+	            </ul>
+	            <?php wp_nonce_field('su-change-user-nonce', 'su-change-user-security'); ?>
+	        </div>
 
-            .su-wrapper.open {
-                right: 0;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-            }
-
-            .su-wrapper-toggle {
-                position: absolute;
-                left: -40px;
-                top: 50%;
-                font-size: 30px;
-                width: 40px;
-                height: 50px;
-                text-align: center;
-                background: #FFFFFF;
-                border-top-left-radius: 10px;
-                border-bottom-left-radius: 10px;
-                margin-top: -25px;
-                -webkit-transition: all 0.3s ease-in-out;
-                -moz-transition: all 0.3s ease-in-out;
-                -o-transition: all 0.3s ease-in-out;
-                transition: all 0.3s ease-in-out;
-                box-shadow: 0 1px 3px rgba(0, 0, 0, 0.12);
-                cursor: pointer;
-            }
-
-            .su-wrapper-toggle:before {
-                content: "<";
-                line-height: 47px;
-            }
-
-            .su-wrapper.open .su-wrapper-toggle:before {
-                content: ">";
-            }
-
-            .su-wrapper h1 {
-                font-size: 18px;
-                text-align: center;
-                margin-bottom: 20px;
-                color: #000;
-                margin: 15px 20px 0 20px;
-            }
-
-            .su-wrapper hr {
-                display: block;
-            }
-
-            .su-wrapper ul {
-                display: block;
-                margin: 0;
-                max-height: 230px;
-                padding: 0;
-                overflow-y: scroll;
-            }
-
-            .su-wrapper li {
-                display: block;
-                padding: 5px 10px 5px 20px;
-                cursor: pointer;
-            }
-
-            .su-wrapper li.current-user {
-                background: #CCCCCC;
-                cursor: default;
-            }
-
-            .su-wrapper li:hover {
-                background: #CCCCCC;
-            }
-
-        </style>
-
-        <div class="su-wrapper">
-            <span class="su-wrapper-toggle"></span>
-            <h1><?php _e('Switch User:', SU_TEXTDOMAIN) ?></h1>
-            <hr>
-            <ul>
-                <?php
-                    foreach ($users as $user) {
-                        if ($user->ID == get_current_user_id()) {
-                            echo '<li class="current-user" data-user-id="' . $user->ID . '">' . $user->user_login . '</li>';    
-                        } else {
-                            echo '<li class="js-su-user" data-user-id="' . $user->ID . '">' . $user->user_login . '</li>';
-                        }
-                    }
-                ?>
-            </ul>
-            <?php wp_nonce_field('su-change-user-nonce', 'su-change-user-security'); ?>
-        </div>
-
-        <script type="text/javascript">
-            jQuery(document).ready(function($) {
-                $('.js-su-user').on('click', function(event) {
-                    event.preventDefault();
-                    if (!$('.su-wrapper').hasClass('working')) {
-                        $('.su-wrapper').addClass('working');
-                        $('.su-wrapper').removeClass('open');
-
-                        var user_id = $(this).attr('data-user-id');
-                        var su_security = $('.su-wrapper').find('#su-change-user-security').val();
-
-                        $.ajax({
-                            url: "<?php echo admin_url('admin-ajax.php') ?>",
-                            type: 'POST',
-                            data: {action: 'su_change_user', user_id: user_id, su_nonce: su_security},
-                        })
-                        .done(function(data) {
-                            if (data.status == 'ok') {
-                                alert('<?php _e("Current user successfully changed.", SU_TEXTDOMAIN) ?>');
-                                window.location.reload(true);
-                            } else if (data.msg != '') {
-                                alert(data.msg);
-                            } else {
-                                alert('<?php _e("Oops... error: please try again.", SU_TEXTDOMAIN) ?>');
-                            }
-                        })
-                        .fail(function() {
-                            alert('<?php _e("There was a connection error, please try again.", SU_TEXTDOMAIN) ?>');
-                        });
-                    }
-                });
-
-                $('.su-wrapper-toggle').on('click', function(event) {
-                    event.preventDefault();
-                    $('.su-wrapper').toggleClass('open');
-                });
-            });
-        </script>
     <?php endif; endif;
 }
 add_action('wp_footer', 'su_frontend');
+
+
+/**
+ * Load scripts js and styles css
+ */
+function su_enqueue_scripts() {
+	wp_enqueue_style( SU_TEXTDOMAIN . '_css_main', plugins_url( 'assets/css/main.css', __FILE__ ), array(), null, 'all' );
+	wp_enqueue_script( SU_TEXTDOMAIN . '_js_main', plugins_url( 'assets/js/main.js', __FILE__ ), array( 'jquery' ), null, true );
+	wp_localize_script( SU_TEXTDOMAIN . '_js_main', 'postUsefulAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
+}
+add_action( 'wp_enqueue_scripts', 'su_enqueue_scripts' );
 
 // PARA O LOGIN
 add_action('wp_ajax_su_change_user', 'su_change_user');
