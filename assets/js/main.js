@@ -9,7 +9,7 @@ jQuery(document).ready(function($) {
 			var su_security = $('.su-wrapper').find('#su-change-user-security').val();
 
 			$.ajax({
-				url: "<?php echo admin_url('admin-ajax.php') ?>",
+				url: postUsefulAjax.ajaxurl,
 				type: 'POST',
 				data: {action: 'su_change_user', user_id: user_id, su_nonce: su_security},
 			})
