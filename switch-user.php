@@ -5,8 +5,10 @@ Description: Switch to another user account quickly. Do not activate in producti
 Version: 1.0
 Author: Mário Valney
 Author URI: http://www.mariovalney.com
-Text Domain: switchuser
+Text Domain: switch-user
 */
+
+define('SU_TEXTDOMAIN', 'switch-user');
 
 function su_frontend() {
     if (is_user_logged_in()) : 
@@ -107,7 +109,7 @@ function su_frontend() {
 
         <div class="su-wrapper">
             <span class="su-wrapper-toggle"></span>
-            <h1>Trocar usuário:</h1>
+            <h1><?php _e('Switch User:', SU_TEXTDOMAIN) ?></h1>
             <hr>
             <ul>
                 <?php
@@ -141,16 +143,16 @@ function su_frontend() {
                         })
                         .done(function(data) {
                             if (data.status == 'ok') {
-                                alert('Usuário alterado com sucesso.');
+                                alert('<?php _e("Current user successfully changed.", SU_TEXTDOMAIN) ?>');
                                 window.location.reload(true);
                             } else if (data.msg != '') {
                                 alert(data.msg);
                             } else {
-                                alert('Houve um erro, tente novamente.');
+                                alert('<?php _e("Oops... error: please try again.", SU_TEXTDOMAIN) ?>');
                             }
                         })
                         .fail(function() {
-                            alert('Houve um erro de conexão, tente novamente.');
+                            alert('<?php _e("There was a connection error, please try again.", SU_TEXTDOMAIN) ?>');
                         });
                     }
                 });
@@ -179,7 +181,7 @@ function su_change_user(){
         $return = array("status" => "ok");
 
     } else {
-        $return = array("status" => "error", "msg" => __("ID de usuário inválido.", LW_TEXTDOMAIN));
+        $return = array("status" => "error", "msg" => __("Invalid user ID.", SU_TEXTDOMAIN));
     }
 
     wp_send_json($return);
