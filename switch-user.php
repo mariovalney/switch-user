@@ -41,12 +41,12 @@ add_action('wp_footer', 'su_frontend');
 /**
  * Load scripts js and styles css
  */
-function enqueue_scripts() {
+function su_enqueue_scripts() {
 	wp_enqueue_style( SU_TEXTDOMAIN . '_css_main', plugins_url( 'assets/css/main.css', __FILE__ ), array(), null, 'all' );
 	wp_enqueue_script( SU_TEXTDOMAIN . '_js_main', plugins_url( 'assets/js/main.js', __FILE__ ), array( 'jquery' ), null, true );
 	wp_localize_script( SU_TEXTDOMAIN . '_js_main', 'postUsefulAjax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
-add_action( 'wp_enqueue_scripts', 'enqueue_scripts' );
+add_action( 'wp_enqueue_scripts', 'su_enqueue_scripts' );
 
 // PARA O LOGIN
 add_action('wp_ajax_su_change_user', 'su_change_user');
