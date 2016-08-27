@@ -1,0 +1,25 @@
+### Windows and iOS ###
+.AppleDouble
+.DS_Store
+.localized
+.LSOverride
+.Spotlight-V100
+.Trashes
+Icon
+Desktop.ini
+ehthumbs.db
+Thumbs.db
+
+### Sublime Text ###
+*.sublime-project
+*.sublime-workspace
+*.sublime-projectcompletions
+
+### NetBeans ###
+nbproject/*
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/

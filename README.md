@@ -38,7 +38,7 @@ If you need help performing any of the procedures above, please access the link 
 * Improved front-end
 * I18n by @leobaiano
 
-#### 1.0.#1 ###
+#### 1.0.1 ###
 * File architecture improved by @leobaiano
 
 #### 1.0 ####
