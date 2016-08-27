@@ -3,8 +3,8 @@ Contributors: mariovalney, leobaiano
 Donate link: http://mariovalney.com/
 Tags: users, developer, debug
 Requires at least: 3.1.0
-Tested up to: 4.4
-Stable tag: 1.0.1
+Tested up to: 4.6
+Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -17,13 +17,12 @@ The intent is create a simple interface where the logged user can switch to anot
 
 This make tests and debug infos more fast (especially when you are working with different roles). 
 
-For security we:
+For security:
 
-* Only logged users can switch user accounts. You can activate the plugin and also show the website to friends and colleagues.
+* Only logged users can switch user accounts in website with WP_DEBUG false.
 * Passwords are not revealed (of course).
 * Uses the cookie authentication function 'wp_set_auth_cookie' to switch accounts.
 * Implements the nonce security system (of course).
-
 
 Obs: For now, the interface appears only in website, not in dashboard.
 
@@ -49,13 +48,19 @@ The interface to switch users will appear fixed on right side of your website.
 
 = I can't find the interface! =
 
-Make sure your theme uses get_footer() function...
+Make sure your theme uses get_footer() function... or read next question.
 
 = Can I use it in production (real) website? =
 
 NO! For secury reasons, of course...
+But it will works only if you set WP_DEBUG to true or you're already logged.
 
 == Changelog ==
+
+= 2.0 =
+* Code refactored (POO)
+* Improved front-end
+* I18n by @leobaiano
 
 = 1.0.1 =
 * File architecture improved by @leobaiano
