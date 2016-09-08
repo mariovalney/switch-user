@@ -33,6 +33,9 @@ If you need help performing any of the procedures above, please access the link 
 
 ## Changelog ##
 
+#### 2.1 ####
+* Fix on ajax request
+
 #### 2.0 ####
 * Code refactored (POO)
 * Improved front-end

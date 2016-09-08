@@ -8,7 +8,7 @@
  * Plugin Name:       Switch User
  * Plugin URI:        http://projetos.mariovalney.com/switch-user
  * Description:       Switch to another user account quickly. Do not activate in production!
- * Version:           2.0
+ * Version:           2.1
  * Author:            Mário Valney
  * Author URI:        http://mariovalney.com
  * License:           GPL-2.0+
@@ -254,10 +254,10 @@ if ( ! class_exists( 'Switch_User' ) ) {
  */
 function switch_user_starts() {
 
-	define( 'SWITCH_USER_VERSION', '2.0' );
-	define( 'SWITCH_USER_SCRIPTS_VERSION', '2.0' );
+	define( 'SWITCH_USER_VERSION', '2.1' );
+	define( 'SWITCH_USER_SCRIPTS_VERSION', '2.1' );
 	define( 'SWITCH_USER_TEXTDOMAIN', 'switch-user' );
-	define( 'SWITCH_USER_TAG', 'cf7_html_email_template_extension' );
+	define( 'SWITCH_USER_TAG', 'switch_user' );
 
 	$plugin = new Switch_User();
 

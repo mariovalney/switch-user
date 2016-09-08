@@ -57,6 +57,9 @@ But it will works only if you set WP_DEBUG to true or you're already logged.
 
 == Changelog ==
 
+= 2.1 =
+* Fix ajax request
+
 = 2.0 =
 * Code refactored (POO)
 * Improved front-end

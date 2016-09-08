@@ -62,6 +62,7 @@ if ( ! class_exists( 'Switch_User_Frontend' ) ) {
 			$this->add_action( 'wp_footer', array( $this, 'render_html' ) );
 
 			// AJAX
+			$this->add_action( 'wp_ajax_switch_user_change_user', array( $this, 'change_user' ) );
 			$this->add_action( 'wp_ajax_nopriv_switch_user_change_user', array( $this, 'change_user' ) );
 
 		}
