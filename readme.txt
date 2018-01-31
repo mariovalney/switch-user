@@ -3,7 +3,7 @@ Contributors: mariovalney, leobaiano
 Donate link: http://mariovalney.com/
 Tags: users, developer, debug
 Requires at least: 3.1.0
-Tested up to: 4.6
+Tested up to: 4.9.2
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -15,7 +15,7 @@ Switch to another user account quickly.
 It's a plugin for developers.
 The intent is create a simple interface where the logged user can switch to another user account.
 
-This make tests and debug infos more fast (especially when you are working with different roles). 
+This make tests and debug infos more fast (especially when you are working with different roles).
 
 For security:
 
