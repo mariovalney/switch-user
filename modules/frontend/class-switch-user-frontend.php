@@ -109,11 +109,7 @@ if ( ! class_exists( 'Switch_User_Frontend' ) ) {
 		 * @since    2.0
 		 */
 		private function check_can_render() {
-			if ( WP_DEBUG || is_user_logged_in() ) {
-				return true;
-			}
-
-			return false;
+			return apply_filters( 'su_front_can_render', ( WP_DEBUG || is_user_logged_in() ) );
 		}
 
 		/**
@@ -127,7 +123,7 @@ if ( ! class_exists( 'Switch_User_Frontend' ) ) {
 
 				wp_enqueue_style( SWITCH_USER_TEXTDOMAIN . '_css_main', plugins_url( 'css/main.css', __FILE__ ), array(), SWITCH_USER_SCRIPTS_VERSION, 'all' );
 				wp_enqueue_script( SWITCH_USER_TEXTDOMAIN . '_js_main', plugins_url( 'js/main.js', __FILE__ ), array( 'jquery' ), SWITCH_USER_SCRIPTS_VERSION, true );
-				
+
 				$su_localize_string = array(
 					'ajaxurl' 	=> admin_url( 'admin-ajax.php' ),
 					'messages'	=> array(
@@ -151,10 +147,9 @@ if ( ! class_exists( 'Switch_User_Frontend' ) ) {
 		public function render_html() {
 
 			if ( $this->check_can_render() ) {
-				
-				$users = get_users( array(
-					'order_by' => 'login',
-				) );
+
+                $args = apply_filters( 'su_front_get_users_args', [ 'order_by' => 'login' ] );
+				$users = get_users( $args );
 
 				if ( ! empty( $users ) ) : ?>
 
@@ -177,8 +172,10 @@ if ( ! class_exists( 'Switch_User_Frontend' ) ) {
 						</ul>
 						<?php wp_nonce_field( SWITCH_USER_CHANGE_USER_NONCE, 'su-change-user-security' ); ?>
 					</div>
-				
+
 				<?php endif;
+
+                do_action( 'su_front_after_render_html' );
 			}
 
 		}
@@ -193,39 +190,22 @@ if ( ! class_exists( 'Switch_User_Frontend' ) ) {
 			// Checa a referência (wp_nonce)
 			check_ajax_referer( SWITCH_USER_CHANGE_USER_NONCE, 'su_nonce' );
 
-			$return = array(
-				"status" => "error",
-			);
+			$return = [
+                'status'    => 'error',
+                'msg'       => apply_filters( 'su_front_change_user_message_not_allowed', __( 'You are not allowed to do that.', SWITCH_USER_TEXTDOMAIN ) ),
+            ];
 
-			if ( $this->check_can_render() ) {
+            if ( empty( $_POST['user_id'] ) || ! $this->check_can_render() ) {
+                wp_send_json( $return );
+            }
 
-				if ( isset( $_POST['user_id'] ) && $_POST['user_id'] != '' ) {
+            $user_id = sanitize_text_field( $_POST['user_id'] );
 
-					$user = get_user_by( 'ID', intval( $_POST['user_id'] ) );
+			$user = get_user_by( 'ID', (int) $user_id );
 
-					if ( $user ) {
-					    wp_set_auth_cookie( intval( $_POST['user_id'] ) );
-					    $return = array(
-					    	"status" => "ok",
-					    );
-					}
-
-				} else {
-
-				    $return = array(
-				    	"status" => "error",
-				    	"msg" => __( "Invalid user ID.", SWITCH_USER_TEXTDOMAIN ),
-				    );
-
-				}
-
-			} else {
-
-			    $return = array(
-			    	"status" => "error",
-			    	"msg" => __( "You are not allowed to do that.", SWITCH_USER_TEXTDOMAIN ),
-			    );
-
+			if ( $user ) {
+			    wp_set_auth_cookie( (int) $user_id );
+			    $return = [ 'status' => 'ok' ];
 			}
 
 			wp_send_json( $return );

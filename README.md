@@ -3,7 +3,7 @@
 It's a plugin for developers.
 The intent is create a simple interface where the logged user can switch to another user account.
 
-This make tests and debug infos more fast (especially when you are working with different roles). 
+This make tests and debug infos more fast (especially when you are working with different roles).
 
 For security:
 
@@ -33,16 +33,28 @@ If you need help performing any of the procedures above, please access the link 
 
 ## Changelog ##
 
+#### 2.2 ####
+
+* Added a lot of hooks for developers:
+* - su_front_get_users_args
+* - su_front_after_render_html
+* - su_front_can_render
+* - su_front_change_user_message_not_allowed
+
 #### 2.1 ####
+
 * Fix on ajax request
 
 #### 2.0 ####
+
 * Code refactored (POO)
 * Improved front-end
 * I18n by @leobaiano
 
 #### 1.0.1 ###
+
 * File architecture improved by @leobaiano
 
 #### 1.0 ####
+
 * First version: you can switch through all users registered.

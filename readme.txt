@@ -3,7 +3,7 @@ Contributors: mariovalney, leobaiano
 Donate link: http://mariovalney.com/
 Tags: users, developer, debug
 Requires at least: 3.1.0
-Tested up to: 4.9.2
+Tested up to: 5.1.1
 Stable tag: trunk
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -55,18 +55,32 @@ Make sure your theme uses get_footer() function... or read next question.
 NO! For secury reasons, of course...
 But it will works only if you set WP_DEBUG to true or you're already logged.
 
+Anywauy, you can change it with 'su_front_can_render'.
+
 == Changelog ==
 
+= 2.2 =
+
+* Added a lot of hooks for developers:
+* - su_front_get_users_args
+* - su_front_after_render_html
+* - su_front_can_render
+* - su_front_change_user_message_not_allowed
+
 = 2.1 =
+
 * Fix ajax request
 
 = 2.0 =
+
 * Code refactored (POO)
 * Improved front-end
 * I18n by @leobaiano
 
 = 1.0.1 =
+
 * File architecture improved by @leobaiano
 
 = 1.0 =
+
 * First version: you can switch through all users registered.

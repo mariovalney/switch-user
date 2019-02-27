@@ -8,7 +8,7 @@
  * Plugin Name:       Switch User
  * Plugin URI:        http://projetos.mariovalney.com/switch-user
  * Description:       Switch to another user account quickly. Do not activate in production!
- * Version:           2.1
+ * Version:           2.2
  * Author:            Mário Valney
  * Author URI:        http://mariovalney.com
  * License:           GPL-2.0+
@@ -26,7 +26,7 @@ if ( ! class_exists( 'Switch_User' ) ) {
 	class Switch_User {
 
 		/**
-		 * The unique internal identifier of this plugin to avoid overwritten class. 
+		 * The unique internal identifier of this plugin to avoid overwritten class.
 		 * Discussed with @gugaalves and @leobaiano in WordCamp Fortaleza 2016...
 		 *
 		 * @since    2.0
@@ -144,7 +144,7 @@ if ( ! class_exists( 'Switch_User' ) ) {
 		private function add_modules() {
 
 			require_once plugin_dir_path( __FILE__ ) . 'modules/frontend/class-switch-user-frontend.php';
-			
+
 			$this->modules['frontend'] = new Switch_User_Frontend( $this, SWITCH_USER_TAG );
 
 		}
@@ -254,8 +254,8 @@ if ( ! class_exists( 'Switch_User' ) ) {
  */
 function switch_user_starts() {
 
-	define( 'SWITCH_USER_VERSION', '2.1' );
-	define( 'SWITCH_USER_SCRIPTS_VERSION', '2.1' );
+	define( 'SWITCH_USER_VERSION', '2.2' );
+	define( 'SWITCH_USER_SCRIPTS_VERSION', '2.2' );
 	define( 'SWITCH_USER_TEXTDOMAIN', 'switch-user' );
 	define( 'SWITCH_USER_TAG', 'switch_user' );
 
